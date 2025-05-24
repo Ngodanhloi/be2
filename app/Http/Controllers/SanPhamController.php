@@ -17,11 +17,11 @@ class SanPhamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function admin()
+    public function listpro()
     {
         $sanphams = SanPham::paginate(5);
-        $cates = Category::all();
-        return view('admin', compact('sanphams', 'cates'))->with('i', (request()->input('page', 1) - 1) * 5);
+        // $cates = Category::all();
+        return view('admin.curdSanPham.listpro', compact('sanphams'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function store(Request $request)
@@ -55,6 +55,6 @@ class SanPhamController extends Controller
         }
 
         $sanpham->save();
-        return redirect('admin')->with('success', 'Sản phẩm đã được tạo thành công.');
+        return redirect('listpro')->with('success', 'Sản phẩm đã được tạo thành công.');
     }
 }

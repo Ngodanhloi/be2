@@ -19,8 +19,8 @@ class SanPham extends Model
         $this->save();
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'danhmucsp_id', 'danhmucsp_id');
-    }
+    // public function category()
+    // {
+    //     return $this->belongsTo(Category::class, 'danhmucsp_id', 'danhmucsp_id');
+    // }
 }

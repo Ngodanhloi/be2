@@ -40,5 +40,6 @@ Route::get('/', function () {
 
 
 Route::post('/admin/them/store', [SanPhamController::class, 'store'])->name('admin.them.store');
+Route::get('/listpro', [SanPhamController::class, 'listPro'])->name('listpro');
 
 
