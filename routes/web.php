@@ -42,5 +42,7 @@ Route::get('/', function () {
 Route::post('/admin/them/store', [SanPhamController::class, 'store'])->name('admin.them.store');
 Route::get('/listpro', [SanPhamController::class, 'listPro'])->name('listpro');
 Route::put('/admin/sua/{sanpham_id}', [SanPhamController::class, 'update'])->name('admin.crudSanPham.updatepro');
+Route::delete('/admin/listpro/delete/{sanpham_id}', [SanPhamController::class, 'delete'])->name('admin.listpro.delete');
+
 
 

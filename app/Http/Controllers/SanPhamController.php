@@ -94,4 +94,14 @@ class SanPhamController extends Controller
 
         return redirect()->route('listpro')->with('success', 'đã được thêm thành công.');
     }
+    public function delete($id)
+    {
+        // // Delete related records in the danhgia table
+        // BinhLuan::where('sanpham_id', $id)->delete();
+
+        // Delete the SanPham record
+        SanPham::destroy($id);
+
+        return redirect('listpro')->with('success', 'Sản phẩm đã được xóa thành công.');
+    }
 }

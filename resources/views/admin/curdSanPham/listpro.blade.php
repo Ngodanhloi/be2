@@ -166,6 +166,12 @@
                             <td>{{ $pro->created_at }}</td>
                             <td> 
                             <button class="edit-button btn btn-sm btn-warning" data-product-id="{{ $pro->sanpham_id }}">Edit</button>
+                            
+                            <form action="{{ route('admin.listpro.delete', ['sanpham_id' => $pro->sanpham_id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')">Xóa</button>
+                            </form>
                             </td>
                             <div id="editFormContainer-{{ $pro->sanpham_id }}" class="edit-form-container" style="display: none;">
                         <form action="{{ route('admin.crudSanPham.updatepro', $pro->sanpham_id) }}" method="POST" enctype="multipart/form-data">
@@ -215,6 +221,7 @@
                                     <button type="submit" class="btn btn-primary">Cập Nhật Sản Phẩm</button>
                                     <button type="button" class="btn btn-danger" onclick="closeEditForm()">Đóng</button>
                                 </form>
+
                         </div>
                         </tr>
                 @endforeach
