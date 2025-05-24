@@ -164,7 +164,59 @@
                             <td>{{ $pro->soluongtrongkho }}</td>
                             <!-- <td>{{ $pro->category->ten ?? 'N/A' }}</td> -->
                             <td>{{ $pro->created_at }}</td>
-                    </tr> 
+                            <td> 
+                            <button class="edit-button btn btn-sm btn-warning" data-product-id="{{ $pro->sanpham_id }}">Edit</button>
+                            </td>
+                            <div id="editFormContainer-{{ $pro->sanpham_id }}" class="edit-form-container" style="display: none;">
+                        <form action="{{ route('admin.crudSanPham.updatepro', $pro->sanpham_id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group">
+                                        <label for="ten-{{ $pro->sanpham_id }}">Tên sản phẩm:</label>
+                                        <input type="text" id="ten-{{ $pro->sanpham_id }}" name="ten" value="{{ $pro->ten }}" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="mota-{{ $pro->sanpham_id }}">Mô tả:</label>
+                                        <input id="mota-{{ $pro->sanpham_id }}" type="hidden" name="mota" value="{{ $pro->mota }}">
+                                        <trix-editor input="mota-{{ $pro->sanpham_id }}"></trix-editor>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="gia-{{ $pro->sanpham_id }}">Giá:</label>
+                                        <input type="number" id="gia-{{ $pro->sanpham_id }}" name="gia" value="{{ $pro->gia }}" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="sale-{{ $pro->sanpham_id }}">Sale (%):</label>
+                                        <input type="number" id="sale-{{ $pro->sanpham_id }}" name="sale" value="{{ $pro->sale ?? 0 }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="hinh-{{ $pro->sanpham_id }}">Hình ảnh:</label>
+                                        <input type="file" id="hinh-{{ $pro->sanpham_id }}" name="hinh">
+                                        @if($pro->hinh && file_exists(public_path('img/product/'.$pro->hinh)))
+                                            <img src="{{ asset('img/product/'.$pro->hinh) }}" width="100">
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="soluongtrongkho-{{ $pro->sanpham_id }}">Số lượng trong kho:</label>
+                                        <input type="number" id="soluongtrongkho-{{ $pro->sanpham_id }}" name="soluongtrongkho" value="{{ $pro->soluongtrongkho }}" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="soluongdaban-{{ $pro->sanpham_id }}">Số lượng đã bán:</label>
+                                        <input type="number" id="soluongdaban-{{ $pro->sanpham_id }}" name="soluongdaban" value="{{ $pro->soluongdaban }}" required>
+                                    </div>
+
+                                    <!-- danh muc o day -->
+
+                                    <button type="submit" class="btn btn-primary">Cập Nhật Sản Phẩm</button>
+                                    <button type="button" class="btn btn-danger" onclick="closeEditForm()">Đóng</button>
+                                </form>
+                        </div>
+                        </tr>
                 @endforeach
                 </tbody>
                 </table>

@@ -57,4 +57,41 @@ class SanPhamController extends Controller
         $sanpham->save();
         return redirect('listpro')->with('success', 'Sản phẩm đã được tạo thành công.');
     }
+    public function update(Request $request, $id)
+    {
+        $sanpham = SanPham::findOrFail($id);
+
+        // Validate the input data
+        $validatedData = $request->validate([
+            'ten' => 'required',
+            'mota' => 'required',
+            'gia' => 'required|numeric',
+            'sale' => 'nullable|numeric',
+            'soluongtrongkho' => 'required|numeric',
+            'soluongdaban' => 'required|numeric',
+            // 'danhmucsp_id' => 'required|exists:category,danhmucsp_id',
+            'hinh' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Update the product data
+        $sanpham->ten = $validatedData['ten'];
+        $sanpham->mota = $validatedData['mota'];
+        $sanpham->gia = $validatedData['gia'];
+        $sanpham->sale = $validatedData['sale'] ?? 0;
+        $sanpham->soluongtrongkho = $validatedData['soluongtrongkho'];
+        $sanpham->soluongdaban = $validatedData['soluongdaban'];
+        // $sanpham->danhmucsp_id = $validatedData['danhmucsp_id'];
+
+        // Xử lý hình ảnh
+        if ($request->hasFile('hinh')) {
+            $image = $request->file('hinh');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('img/product'), $imageName);
+            $sanpham->hinh = $imageName;
+        }
+
+        $sanpham->save();
+
+        return redirect()->route('listpro')->with('success', 'đã được thêm thành công.');
+    }
 }

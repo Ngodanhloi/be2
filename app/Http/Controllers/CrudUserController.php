@@ -19,7 +19,7 @@ class CrudUserController extends Controller
      */
     public function login()
     {
-        return view('admin.curdSanPham.them');
+        return view('login');
     }
 
     /**
