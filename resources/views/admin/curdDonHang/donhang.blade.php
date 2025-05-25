@@ -49,7 +49,7 @@
 
     <main>
         @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         <section class="admin-section">
@@ -61,45 +61,49 @@
             </div>
 
             @isset($donhangs)
-            @if ($donhangs->count())
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <!-- <th>Người dùng</th>
-                        <th>Sản phẩm</th> -->
-                        <th>Ngày đặt</th>
-                        <th>Tổng tiền</th>
-                        <th>Ngày tạo</th>
-                        <th>Ngày cập nhật</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($donhangs as $dh)
-                    <tr>
-                        <td>{{ $dh->donhang_id }}</td>
-                        <!-- <td>{{ $dh->user_id }}</td>
-                        <td>{{ $dh->sanpham_id }}</td> -->
-                        <td>{{ $dh->ngaydat }}</td>
-                        <td>{{ number_format($dh->tongtien, 0, ',', '.') }} VND</td>
-                        <td>{{ $dh->created_at }}</td>
-                        <td>{{ $dh->updated_at }}</td>
-                        <!-- <td>
-                            <a href="{{ route('roleadmin.donhang.show', $dh->donhang_id) }}" class="btn btn-info">Xem</a>
-                            <form action="{{ route('roleadmin.donhang.delete', $dh->donhang_id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Xóa đơn hàng này?')">Xóa</button>
-                            </form>
-                        </td> -->
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @else
-            <p>Không có đơn hàng nào.</p>
-            @endif
+                @if ($donhangs->count())
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <!-- <th>Người dùng</th>
+                                <th>Sản phẩm</th> -->
+                                <th>Ngày đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($donhangs as $dh)
+                                <tr>
+                                    <td>{{ $dh->donhang_id }}</td>
+                                    <!-- <td>{{ $dh->user_id }}</td>
+                                    <td>{{ $dh->sanpham_id }}</td> -->
+                                    <td>{{ $dh->ngaydat }}</td>
+                                    <td>{{ number_format($dh->tongtien, 0, ',', '.') }} VND</td>
+                                    <td>{{ $dh->created_at }}</td>
+                                    <td>{{ $dh->updated_at }}</td>
+                                    {{-- Đây là cách comment đúng trong Blade --}}
+                                    {{-- <td>
+                                        <a href="{{ route('roleadmin.donhang.show', $dh->donhang_id) }}"
+                                            class="btn btn-info">Xem</a>
+                                        <form action="{{ route('roleadmin.donhang.delete', $dh->donhang_id) }}" method="POST"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Xóa đơn hàng này?')">Xóa</button>
+                                        </form>
+                                    </td> --}}
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p>Không có đơn hàng nào.</p>
+                @endif
             @endisset
 
             {{ $donhangs->links() }}

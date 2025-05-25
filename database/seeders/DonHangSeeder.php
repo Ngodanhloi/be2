@@ -15,8 +15,8 @@ class DonHangSeeder extends Seeder
 
         for ($i = 0; $i < 50; $i++) {
             DonHang::create([
-                'user_id' => $faker->numberBetween(1, 20),
-                'sanpham_id' => $faker->numberBetween(1, 100),
+                // 'user_id' => $faker->numberBetween(1, 20),
+                // 'sanpham_id' => $faker->numberBetween(1, 100),
                 'ngaydat' => $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
                 'tongtien' => $faker->randomFloat(2, 10000, 1000000),
             ]);
