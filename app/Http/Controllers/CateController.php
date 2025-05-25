@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Category;
+use Illuminate\Http\Request;
+
+class CateController extends Controller
+{
+    public function index()
+    {
+        $cates = Category::paginate(10);
+        return view('admin.crudDanhmuc.listcate', compact('cates')); 
+    }
+
+    public function store(Request $request)
+    {
+        $cate = new Category();
+        $cate->ten = $request->input('ten');
+        $cate->mota = $request->input('mota');
+
+        $cate->save();
+        return redirect()->route('admin.crudDanhmuc.listcate')->with('success', 'Danh Mục đã được thêm thành công.');
+    }
+}

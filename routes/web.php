@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\SanPhamController;
-
+use App\Http\Controllers\CateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +34,9 @@ Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
 
 Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 
+/*Admin: Crud Cate */
+Route::get('admin/listcate', [CateController::class, 'index'])->name('admin.crudDanhmuc.listcate');
+Route::post('/admin/listcate/store', [CateController::class, 'store'])->name('admin.listcate.store');
 Route::get('/', function () {
     return view('welcome');
 });
