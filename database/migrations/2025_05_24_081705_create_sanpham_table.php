@@ -22,11 +22,12 @@ return new class extends Migration
             $table->string('hinh', 255)->nullable();
             $table->integer('soluongtrongkho');
             $table->integer('soluongdaban')->default(0);
-            // $table->unsignedInteger('danhmucsp_id');
+            $table->unsignedInteger('danhmucsp_id');
             // $table->foreign('danhmucsp_id')->references('danhmucsp_id')->on('category');
             $table->integer('view')->default(0);
             $table->integer('like')->default(0);
             $table->timestamps();
+            dump("Bảng sanpham đã được tạo kèm cột danhmucsp_id");
         });
     }
 

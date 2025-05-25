@@ -20,8 +20,8 @@ class SanPhamController extends Controller
     public function listpro()
     {
         $sanphams = SanPham::paginate(5);
-        // $cates = Category::all();
-        return view('admin.curdSanPham.listpro', compact('sanphams'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $cates = Category::all();
+        return view('admin.crudSanPham.listpro', compact('sanphams', 'cates'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function store(Request $request)
@@ -33,7 +33,7 @@ class SanPhamController extends Controller
             'sale' => 'nullable|numeric',
             'soluongtrongkho' => 'required|numeric',
             'soluongdaban' => 'required|numeric',
-            // 'danhmucsp_id' => 'required|exists:category,danhmucsp_id', // Kiểm tra ID danh mục tồn tại
+            'danhmucsp_id' => 'required|exists:category,danhmucsp_id', // Kiểm tra ID danh mục tồn tại
             'hinh' => 'nullable|image'
             
         ]);
@@ -45,7 +45,7 @@ class SanPhamController extends Controller
         $sanpham->sale = $request->input('sale');
         $sanpham->soluongtrongkho = $request->input('soluongtrongkho');
         $sanpham->soluongdaban = $request->input('soluongdaban');
-        // $sanpham->danhmucsp_id = $request->input('danhmucsp_id'); // Nhận ID danh mục trực tiếp từ form
+        $sanpham->danhmucsp_id = $request->input('danhmucsp_id'); // Nhận ID danh mục trực tiếp từ form
 
         if ($request->hasFile('hinh')) {
             $file = $request->file('hinh');
@@ -55,7 +55,7 @@ class SanPhamController extends Controller
         }
 
         $sanpham->save();
-        return redirect('listpro')->with('success', 'Sản phẩm đã được tạo thành công.');
+        return redirect('admin/listpro')->with('success', 'Sản phẩm đã được tạo thành công.');
     }
     public function update(Request $request, $id)
     {
@@ -69,7 +69,7 @@ class SanPhamController extends Controller
             'sale' => 'nullable|numeric',
             'soluongtrongkho' => 'required|numeric',
             'soluongdaban' => 'required|numeric',
-            // 'danhmucsp_id' => 'required|exists:category,danhmucsp_id',
+            'danhmucsp_id' => 'required|exists:category,danhmucsp_id',
             'hinh' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -80,7 +80,7 @@ class SanPhamController extends Controller
         $sanpham->sale = $validatedData['sale'] ?? 0;
         $sanpham->soluongtrongkho = $validatedData['soluongtrongkho'];
         $sanpham->soluongdaban = $validatedData['soluongdaban'];
-        // $sanpham->danhmucsp_id = $validatedData['danhmucsp_id'];
+        $sanpham->danhmucsp_id = $validatedData['danhmucsp_id'];
 
         // Xử lý hình ảnh
         if ($request->hasFile('hinh')) {
@@ -92,7 +92,7 @@ class SanPhamController extends Controller
 
         $sanpham->save();
 
-        return redirect()->route('listpro')->with('success', 'đã được thêm thành công.');
+        return redirect()->route('admin/listpro')->with('success', 'đã được thêm thành công.');
     }
     public function delete($id)
     {
@@ -102,6 +102,6 @@ class SanPhamController extends Controller
         // Delete the SanPham record
         SanPham::destroy($id);
 
-        return redirect('listpro')->with('success', 'Sản phẩm đã được xóa thành công.');
+        return redirect('admin/listpro')->with('success', 'Sản phẩm đã được xóa thành công.');
     }
 }

@@ -108,14 +108,15 @@
                             </div>
 
 
-                            <!-- <select name="category_id" class="form-control">
-                                <option value="">-- Chọn danh mục --</option>
-                                @if (!empty($cates))
+                            <div class="form-group">
+                                <label for="danhmucsp_id">Danh mục sản phẩm:</label>
+                                <select name="danhmucsp_id" id="danhmucsp_id" class="form-control" required>
                                     @foreach ($cates as $cate)
-                                        <option value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                        <option value="{{ $cate->danhmucsp_id }}">{{ $cate->ten }}</option>
                                     @endforeach
-                                @endif
-                            </select> -->
+                                    
+                                </select>
+                            </div>
 
 
                             <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
@@ -139,7 +140,7 @@
                                     <th>Sale</th>
                                     <th>Hình</th>
                                     <th>Số lượng trong kho</th>
-                                    <!-- <th>Danh mục</th> -->
+                                    <th>Danh mục</th>
                                     <th>Ngày tạo</th>
                                     <th>Thao tác</th>
                                 </tr>
@@ -162,7 +163,7 @@
                                 @endif
                             </td>
                             <td>{{ $pro->soluongtrongkho }}</td>
-                            <!-- <td>{{ $pro->category->ten ?? 'N/A' }}</td> -->
+                            <td>{{ $pro->category->ten ?? 'N/A' }}</td>
                             <td>{{ $pro->created_at }}</td>
                             <td> 
                             <button class="edit-button btn btn-sm btn-warning" data-product-id="{{ $pro->sanpham_id }}">Edit</button>
@@ -217,6 +218,16 @@
                                     </div>
 
                                     <!-- danh muc o day -->
+                                    <div class="form-group">
+                                        <label for="danhmucsp_id-{{ $pro->sanpham_id }}">Danh mục sản phẩm:</label>
+                                        <select name="danhmucsp_id" id="danhmucsp_id-{{ $pro->sanpham_id }}" required>
+                                            @foreach ($cates as $cate)
+                                                <option value="{{ $cate->danhmucsp_id }}" {{ $pro->danhmucsp_id == $cate->danhmucsp_id ? 'selected' : '' }}>
+                                                    {{ $cate->ten }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                                     <button type="submit" class="btn btn-primary">Cập Nhật Sản Phẩm</button>
                                     <button type="button" class="btn btn-danger" onclick="closeEditForm()">Đóng</button>

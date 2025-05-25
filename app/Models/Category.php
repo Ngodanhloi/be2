@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\SanPham;
 class Category extends Model
 {
     protected $table = 'category';
@@ -24,8 +24,8 @@ class Category extends Model
         });
     }
 
-    // public function products()
-    // {
-    //     return $this->hasMany(SanPham::class, 'danhmucsp_id');
-    // }
+    public function products()
+    {
+        return $this->hasMany(SanPham::class, 'danhmucsp_id');
+    }
 }

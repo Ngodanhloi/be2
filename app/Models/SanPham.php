@@ -11,7 +11,7 @@ class SanPham extends Model
     use HasFactory;
     protected $table = 'sanpham';
     protected $primaryKey = 'sanpham_id';
-    protected $fillable = [ 'ten', 'mota', 'gia', 'sale', 'soluongtrongkho', 'soluongdaban','hinh'];
+    protected $fillable = [ 'ten', 'mota', 'gia', 'sale', 'soluongtrongkho', 'soluongdaban', 'danhmucsp_id','hinh'];
 
     public function incrementViews()
     {
@@ -19,8 +19,8 @@ class SanPham extends Model
         $this->save();
     }
 
-    // public function category()
-    // {
-    //     return $this->belongsTo(Category::class, 'danhmucsp_id', 'danhmucsp_id');
-    // }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'danhmucsp_id', 'danhmucsp_id');
+    }
 }
