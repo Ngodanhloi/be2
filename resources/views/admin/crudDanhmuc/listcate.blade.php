@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cate Dashboard</title>
+    <link rel="stylesheet" href="{{asset('css/admin.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
+    <style>
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        #searchInput {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #searchButton {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #searchButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Trang chủ ADMIN</h1>
+        <a href="{{url('/')}}"><i class="fa fa-home" style="color:#fff; font-size: 25px;"></i></a>
+        <nav>
+            <ul>
+                <li><a href="{{asset('roleadmin/pro')}}" class="nav-link">Quản lý sản phẩm</a></li>
+                <li><a href="{{asset('roleadmin/cate')}}" class="nav-link">Danh Mục</a></li>
+                <li><a href="{{asset('roleadmin/user')}}" class="nav-link">Quản lý tài khoản</a></li>
+                <li><a href="{{ asset('roleadmin/donhang') }}">Đơn Hàng</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        @if (session('success'))
+        <div id="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+        <section id="categories-section" class="admin-section">
+            <h2>Quản lý danh mục</h2>
+            <!-- Button to trigger the popup -->
+            <button id="openPopupButton" class="btn btn-primary">Thêm danh mục</button>
+            <!-- Popup form -->
+            <div id="popupForm" style="display: none;">
+                <form id="addCategoryForm" action="{{ route('admin.listcate.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="ten">Tên danh mục:</label>
+                        <input type="text" id="ten" name="ten" class="form-control">
+                    </div>
+                    <div class="form-group">
+                            <label for="mota">Mô tả:</label>
+                            <input id="mota" type="hidden" name="mota">
+                            <trix-editor input="mota"></trix-editor>
+                        </div>
+                    <button type="submit" class="btn btn-primary">Thêm danh mục</button>
+                </form>
+                <button id="closePopupButton" class="btn btn-danger">Đóng</button>
+            </div>  
+        </section>
+    </main>
+</body>
+
+
+
+</html>
+<script src="{{asset('js/admin.js')}}"></script>

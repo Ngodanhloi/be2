@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*Admin: Crud Cate */
+Route::get('admin/listcate', [CateController::class, 'index'])->name('admin.crudDanhmuc.listcate');
+Route::post('/admin/listcate/store', [CateController::class, 'store'])->name('admin.listcate.store');
 Route::get('/', function () {
     return view('welcome');
 });
