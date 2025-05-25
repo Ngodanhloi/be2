@@ -43,7 +43,27 @@ class CrudUserController extends Controller
 
         return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được xóa thành công.');
     }
+    public function update(Request $request, $user_id)
+    {
+        $users = User::find($user_id);
 
+        // Validate the input data
+        $validatedData = $request->validate([
+            'ten' => 'required|max:50',
+            'email' => 'required|email|unique:users,email,' . $user_id . ',user_id',
+            'password' => 'required|min:8',
+            'role' => 'required|in:admin,user', // Chỉ chấp nhận giá trị admin hoặc user
+        ]);
+
+        // Update the user data
+        $users->name = $validatedData['ten'];
+        $users->email = $validatedData['email'];
+        $users->password = Hash::make($validatedData['password']);
+        $users->role = $validatedData['role']; // Cập nhật quyền
+        $users->save();
+
+        return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được cập nhật thành công!');
+    } 
     
 
 }

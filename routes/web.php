@@ -15,6 +15,7 @@ use App\Http\Controllers\CrudUserController;
 Route::get('admin/listUser', [CrudUserController::class,'index'])->name('admin.listUser.index');
 Route::post('/admin/listUser/store', [CrudUserController::class, 'store'])->name('admin.listUser.store');
 Route::delete('/admin/listUser/delete/{user_id}', [CrudUserController::class, 'delete'])->name('admin.listUser.delete');
+Route::put('/admin/listUser/update/{user_id}', [CrudUserController::class, 'update'])->name('admin.listUser.update');
 Route::get('/', function () {
     return view('welcome');
 });

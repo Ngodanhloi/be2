@@ -111,12 +111,41 @@
                     <td>{{ $user->password }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
+                    <button class="edit-button" data-product-id="{{ $user->user_id }}">Edit</button>
                         <form action="{{ route('admin.listUser.delete', ['user_id' => $user->user_id]) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?')">Xóa</button>
                         </form>
                     </td>
+                      <!-- Edit form container -->
+                      <div id="editFormContainer-{{ $user->user_id }}" class="edit-form-container" style="display: none;">
+                        <form action="{{ route('admin.listUser.update', $user->user_id) }}" method="post">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group">
+                                <label for="ten">Tên Người Dùng:</label>
+                                <input type="text" id="ten" name="ten" class="form-control" value="{{ $user->name }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <textarea id="email" name="email" class="form-control" required>{{ $user->email }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <textarea id="password" name="password" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Quyền:</label>
+                                <select id="role" name="role" class="form-control" required>
+                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cập Nhật Tài Khoản</button>
+                            <button type="button" class="btn btn-danger" onclick="closeEditForm()">Đóng</button>
+                        </form>
+                    </div>
                 </tr>
                 @endforeach
             </tbody>
