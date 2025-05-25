@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CrudUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('admin/listUser', [CrudUserController::class,'index'])->name('admin.listUser.index');
+Route::post('/admin/listUser/store', [CrudUserController::class, 'store'])->name('admin.listUser.store');
 Route::get('/', function () {
     return view('welcome');
 });
