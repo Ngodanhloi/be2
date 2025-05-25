@@ -37,6 +37,13 @@ class CrudUserController extends Controller
         return redirect()->route('admin.listUser.index')->with('success', 'Người dùng mới đã được thêm thành công.');
 
     }
+    public function delete($id)
+    {
+        User::destroy($id);
+
+        return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được xóa thành công.');
+    }
+
     
 
 }

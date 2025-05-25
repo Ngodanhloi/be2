@@ -110,6 +110,13 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->password }}</td>
                     <td>{{ $user->role }}</td>
+                    <td>
+                        <form action="{{ route('admin.listUser.delete', ['user_id' => $user->user_id]) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?')">Xóa</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
