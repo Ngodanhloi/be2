@@ -88,7 +88,37 @@
                 <button type="submit" class="btn btn-primary">Thêm tài khoản</button>
             </form>
             <button id="closePopupButton" class="btn btn-danger">Đóng</button>
-        </div>  
+        </div>
+        @isset($users)
+        @if ($users->count())
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>Mật Khẩu (Hash)</th>
+                    <th>Quyền</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                <tr>
+                    <td>{{ $user->user_id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->password }}</td>
+                    <td>{{ $user->role }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @else
+        <p>Không có tài khoản nào.</p>
+        @endif
+        @endisset
+        {{$users->links()}}  
     </section>
 </html>
 <script src="{{asset('js/admin.js')}}"></script>
