@@ -63,7 +63,7 @@ Route::get('/contact', [WelcomeController::class, 'contact'])->name('contact');
 Route::get('/about', [WelcomeController::class, 'about'])->name('about');
 
 // // Trang tin tức
-// Route::get('/news', [WelcomeController::class, 'news'])->name('news');
+Route::get('/news', [WelcomeController::class, 'news'])->name('news');
 
 // // Trang đánh giá
 Route::get('/danhgia', [WelcomeController::class, 'danhgia'])->name('danhgia');
