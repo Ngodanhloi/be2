@@ -58,6 +58,7 @@ Route::get('/', [WelcomeController::class, 'index'])->middleware('auth')->name('
 
 // // Trang liên hệ
 Route::get('/contact', [WelcomeController::class, 'contact'])->name('contact');
+Route::post('/contact', [WelcomeController::class, 'add'])->name('contact.add');
 
 // Trang giới thiệu
 Route::get('/about', [WelcomeController::class, 'about'])->name('about');
