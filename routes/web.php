@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
-use App\Http\Controllers\SanPhamController;
+use App\Http\Controllers\;
 use App\Http\Controllers\CateController;
+use App\Http\Controllers\DonHangController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,25 +17,7 @@ use App\Http\Controllers\CateController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('dashboard', [CrudUserController::class, 'dashboard']);
-
-Route::get('login', [CrudUserController::class, 'login'])->name('login');
-Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUser');
-
-Route::get('create', [CrudUserController::class, 'createUser'])->name('user.createUser');
-Route::post('create', [CrudUserController::class, 'postUser'])->name('user.postUser');
-
-Route::get('read', [CrudUserController::class, 'readUser'])->name('user.readUser');
-
-Route::get('delete', [CrudUserController::class, 'deleteUser'])->name('user.deleteUser');
-
-Route::get('update', [CrudUserController::class, 'updateUser'])->name('user.updateUser');
-Route::post('update', [CrudUserController::class, 'postUpdateUser'])->name('user.postUpdateUser');
-
-Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
-
-Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 
 /*Admin: Crud Cate */
 Route::get('admin/listcate', [CateController::class, 'index'])->name('admin.crudDanhmuc.listcate');
@@ -41,11 +26,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+//Crud SanPham
 Route::post('/admin/them/store', [SanPhamController::class, 'store'])->name('admin.them.store');
 Route::get('admin/listpro', [SanPhamController::class, 'listPro'])->name('listpro');
 Route::put('/admin/sua/{sanpham_id}', [SanPhamController::class, 'update'])->name('admin.crudSanPham.updatepro');
 Route::delete('/admin/listpro/delete/{sanpham_id}', [SanPhamController::class, 'delete'])->name('admin.listpro.delete');
 
 
+/*Admin: Crud Hoá Đơn */
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/donhang', [DonHangController::class, 'index'])->name('admin.donhang');
+});
+//Crud User
+Route::get('admin/listUser', [CrudUserController::class,'index'])->name('admin.listUser.index');
+Route::post('/admin/listUser/store', [CrudUserController::class, 'store'])->name('admin.listUser.store');
+Route::delete('/admin/listUser/delete/{user_id}', [CrudUserController::class, 'delete'])->name('admin.listUser.delete');
+Route::put('/admin/listUser/update/{user_id}', [CrudUserController::class, 'update'])->name('admin.listUser.update');
 
+Route::get('/', function () {
+    return view('welcome');
+});

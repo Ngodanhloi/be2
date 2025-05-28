@@ -1,154 +1,66 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Hash;
-use Session;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
-/**
- * CRUD User controller
- */
 class CrudUserController extends Controller
 {
-
-    /**
-     * Login page
-     */
-    public function login()
+    public function index()
     {
-        return view('login');
+        $users = User ::paginate(3);
+        return view('admin.crudUser.listUser', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * User submit form login
-     */
-    public function authUser(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+            'ten' => 'required|max:50',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'role' => 'required|in:user,admin' // validate giá trị hợp lệ
+        ]);
+    
+        $user = new User;
+        $user->name = $request->ten;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role; // Lấy role từ form
+        $user->save();
+    
+    
+
+
+        return redirect()->route('admin.listUser.index')->with('success', 'Người dùng mới đã được thêm thành công.');
+
+    }
+    public function delete($id)
+    {
+        User::destroy($id);
+
+        return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được xóa thành công.');
+    }
+    public function update(Request $request, $user_id)
+    {
+        $users = User::find($user_id);
+
+        // Validate the input data
+        $validatedData = $request->validate([
+            'ten' => 'required|max:50',
+            'email' => 'required|email|unique:users,email,' . $user_id . ',user_id',
+            'password' => 'required|min:8',
+            'role' => 'required|in:admin,user', // Chỉ chấp nhận giá trị admin hoặc user
         ]);
 
-        $credentials = $request->only('email', 'password');
+        // Update the user data
+        $users->name = $validatedData['ten'];
+        $users->email = $validatedData['email'];
+        $users->password = Hash::make($validatedData['password']);
+        $users->role = $validatedData['role']; // Cập nhật quyền
+        $users->save();
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('list')
-                ->withSuccess('Signed in');
-        }
-
-        return redirect("login")->withSuccess('Login details are not valid');
-    }
-
-    /**
-     * Registration page
-     */
-    public function createUser()
-    {
-        return view('curdUser.create');
-    }
-
-    /**
-     * User submit form register
-     */
-    public function postUser(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
-
-        $data = $request->all();
-        $check = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password'])
-        ]);
-
-        return redirect("login");
-    }
-
-    /**
-     * View user detail page
-     */
-    public function readUser(Request $request) {
-        $user_id = $request->get('id');
-        $user = User::find($user_id);
-
-        return view('curdUser.read', ['messi' => $user]);
-    }
-
-    /**
-     * Delete user by id
-     */
-    public function deleteUser(Request $request) {
-        $user_id = $request->get('id');
-        $user = User::destroy($user_id);
-
-        return redirect("list")->withSuccess('You have signed-in');
-    }
-
-    /**
-     * Form update user page
-     */
-    public function updateUser(Request $request)
-    {
-        $user_id = $request->get('id');
-        $user = User::find($user_id);
-
-        return view('curdUser.update', ['user' => $user]);
-    }
-
-    /**
-     * Submit form update user
-     */
-    public function postUpdateUser(Request $request)
-    {
-        $input = $request->all();
-
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,id,'.$input['id'],
-            'password' => 'required|min:6',
-        ]);
-
-       $user = User::find($input['id']);
-       $user->name = $input['name'];
-       $user->email = $input['email'];
-       $user->password = $input['password'];
-       $user->save();
-
-        return redirect("list")->withSuccess('You have signed-in');
-    }
-
-    /**
-     * List of users
-     */
-    public function listUser()
-    {
-//        $users = [
-//                'users' => User::all()
-//        ];
-//        return view('crud_user.ronaldo', $users);
-
-        if(Auth::check()){
-            $users = User::all();
-            return view('crud_user.list', ['users' => $users]);
-        }
-
-        return redirect("login")->withSuccess('You are not allowed to access');
-    }
-
-    /**
-     * Sign out
-     */
-    public function signOut() {
-        Session::flush();
-        Auth::logout();
-
-        return Redirect('login');
-    }
+        return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được cập nhật thành công!');
+    } 
 }

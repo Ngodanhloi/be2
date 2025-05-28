@@ -95,17 +95,6 @@
                                     <td>{{ $dh->ghichudonhang }}</td>
                                     <td>{{ $dh->created_at }}</td>
                                     <td>{{ $dh->updated_at }}</td>
-                                    <td>
-                                        <a href="{{ route('roleadmin.donhang.show', $dh->donhang_id) }}"
-                                            class="btn btn-info" >Xem</a>
-                                        <form action="{{ route('roleadmin.donhang.delete', $dh->donhang_id) }}" method="POST"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Xóa đơn hàng này?')">Xóa</button>
-                                        </form>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -119,34 +108,6 @@
         </section>
     </main>
 </body>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        const searchButton = document.getElementById("searchButton");
-
-        searchButton.addEventListener("click", function () {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            const rows = document.querySelectorAll(".table tbody tr");
-            let found = false;
-
-            rows.forEach(row => {
-                const userId = row.cells[1].textContent.toLowerCase();
-                const productId = row.cells[2].textContent.toLowerCase();
-                if (userId.includes(searchTerm) || productId.includes(searchTerm)) {
-                    row.style.display = "";
-                    found = true;
-                } else {
-                    row.style.display = "none";
-                }
-            });
-
-            if (!found) {
-                alert("Không tìm thấy đơn hàng phù hợp.");
-            }
-        });
-    });
-</script>
 
 <script src="{{ asset('js/admin.js') }}"></script>
 
