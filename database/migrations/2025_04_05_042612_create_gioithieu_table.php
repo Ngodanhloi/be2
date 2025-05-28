@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('failed_jobs', function (Blueprint $table) {
+        // Xóa bảng nếu tồn tại trước khi tạo lại
+        Schema::dropIfExists('gioithieu');
+
+        // Tạo lại bảng gioithieu
+        Schema::create('gioithieu', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid',100)->unique();
-            $table->text('connection',255);
-            $table->text('queue',255);
-            $table->longText('payload',255);
-            $table->longText('exception',255);
-            $table->timestamp('failed_at')->useCurrent();
+            $table->string('titel', 255);
+            $table->string('content', 255);
+            $table->timestamps();
         });
     }
 
@@ -31,6 +32,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('failed_jobs');
+        // Xóa bảng gioithieu nếu tồn tại
+        Schema::dropIfExists('gioithieu');
     }
 };
+

@@ -81,7 +81,8 @@
                     <li class="footer__item">
                         <form id="subscribeForm">
                             <div class="send-email" style="background: #000;">
-                                <input id="emailInput" class="send-email__input" type="email" placeholder="Nhập Email...">
+                                <input id="emailInput" class="send-email__input" type="email"
+                                    placeholder="Nhập Email...">
                                 <button id="subscribeBtn" type="button" class="send-email__link">
                                     <i class="fas fa-paper-plane" style="color: white;"></i>
                                 </button>
@@ -94,29 +95,7 @@
     </div>
     <hr style="margin-bottom: 5px;">
     <div class="copyright">
-        <span class="footer__text" style="color: white;"> &copy Bản quyền thuộc về <a class="footer__link1" href="#" style="color:aliceblue">Nhóm C</a></span>
+        <span class="footer__text" style="color: white;"> &copy Bản quyền thuộc về <a class="footer__link1" href="#"
+                style="color:aliceblue">Nhóm C</a></span>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('#subscribeBtn').click(function() {
-            var email = $('#emailInput').val();
-            $.ajax({
-                url: "{{ route('subscribe') }}", // Thay thế đường dẫn này bằng đường dẫn thực tế của bạn
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    email: email
-                },
-                success: function(response) {
-                    alert('Đăng ký thành công!'); // Thông báo cho người dùng
-                    $('#emailInput').val(''); // Xóa trường nhập email sau khi đăng ký thành công
-                },
-                error: function(xhr, status, error) {
-                    console.log('Lỗi khi đăng ký: ' + xhr.responseText);
-                    alert('Đăng ký không thành công! Chi tiết lỗi: ' + xhr.responseText);
-                }
-            });
-        });
-    });
-</script>

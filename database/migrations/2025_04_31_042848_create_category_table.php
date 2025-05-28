@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('category', function (Blueprint $table) {
             $table->increments('danhmucsp_id'); // Sử dụng increments() thay vì id() để tạo khóa chính tăng dần
-            $table->string('ten', 191); // Sử dụng string() và chỉ định độ dài tối đa của chuỗi
-            $table->text('mota'); // Sử dụng text() cho mô tả vì nó có thể lưu trữ một lượng lớn dữ liệu văn bản
+            $table->string('ten', 255); // Sử dụng string() và chỉ định độ dài tối đa của chuỗi
+            $table->text('mota',255); // Sử dụng text() cho mô tả vì nó có thể lưu trữ một lượng lớn dữ liệu văn bản
             $table->timestamps();
         });
     }

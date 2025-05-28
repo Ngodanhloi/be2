@@ -1,13 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-<<<<<<< HEAD
-<<<<<<< HEAD
 use App\Models\User;
-=======
->>>>>>> origin/NguyenXuanLoc-DangNhap
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -68,19 +63,7 @@ class CrudUserController extends Controller
 
         return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được cập nhật thành công!');
     } 
-<<<<<<< HEAD
-}
-=======
 
-use Illuminate\Http\Request;
-
-class CrudUserController extends Controller
-{
-    //
-}
->>>>>>> origin/NguyenXuanLoc-DangKy
-=======
-    
 
 }
->>>>>>> origin/NguyenXuanLoc-DangNhap
+
