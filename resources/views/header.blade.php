@@ -45,19 +45,7 @@
                 <button type="submit">Tìm kiếm</button>
             </form>
 
-            @auth
-            <p style="font-size: 18px; margin-left: 170px;">{{ auth()->user()->name }}!</p>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" style="font-size: 16px; margin-left: 20px; background: black; color:white;">Đăng xuất</button>
-            </form>
-            @else
-
-            <a href="{{ route('login') }}" style="font-size: 18px;">Đăng nhập |</a>
-            <a href="{{ route('register')}}" style="font-size: 18px;">Đăng ký</a>
-            @endauth
-
-            <!-- Cart -->
+           
             <div class="header__cart have" href="#">
                 <i class="fas fa-shopping-basket"></i>  
                 <div class="header__cart-wrap" >
