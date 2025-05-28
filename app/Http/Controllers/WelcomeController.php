@@ -77,8 +77,8 @@ class WelcomeController extends Controller
 
     public function product($page = "product")
     {
-        $sanPham = SanPham::all();
-        return view($page, ['product' => $sanPham]);
+        $sanpham = SanPham::all();
+        return view($page, ['product' => $sanpham]);
     }
 
 

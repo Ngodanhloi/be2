@@ -81,3 +81,4 @@ Route::get('/search', [WelcomeController::class, 'index'])->name('search');
 
 // // Thêm route user.dashboard ở đây, KHÔNG mở lại <?php
 Route::get('/user/dashboard', [CrudUserController::class, 'dashboard'])->name('user.dashboard');
+Route::get('/listProduct/{danhmucsp_id?}/{sort?}', 'App\Http\Controllers\WelcomeController@showListProduct')->name('listProduct.filter');
