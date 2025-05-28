@@ -21,7 +21,7 @@ use App\Http\Controllers\WelcomeController;
 */
 
 // Dashboard
-Route::get('dashboard', [CrudUserController::class, 'dashboard']);
+Route::get('/dashboard', [CrudUserController::class, 'dashboard']);
 
 // Admin: Crud Cate
 Route::get('admin/listcate', [CateController::class, 'index'])->name('admin.crudDanhmuc.listcate');
@@ -57,28 +57,27 @@ require __DIR__.'/auth.php';
 Route::get('/', [WelcomeController::class, 'index'])->middleware('auth')->name('index');
 
 // // Trang liên hệ
-// Route::get('/contact', [WelcomeController::class, 'contact'])->name('contact');
+Route::get('/contact', [WelcomeController::class, 'contact'])->name('contact');
 
-// // Trang giới thiệu
-// Route::get('/about', [WelcomeController::class, 'about'])->name('about');
+// Trang giới thiệu
+Route::get('/about', [WelcomeController::class, 'about'])->name('about');
 
 // // Trang tin tức
 // Route::get('/news', [WelcomeController::class, 'news'])->name('news');
 
 // // Trang đánh giá
-// Route::get('/danhgia', [WelcomeController::class, 'danhgia'])->name('danhgia');
+Route::get('/danhgia', [WelcomeController::class, 'danhgia'])->name('danhgia');
 
 // // Trang sản phẩm (danh sách)
-// Route::get('/product', [WelcomeController::class, 'product'])->name('product');
+Route::get('/product', [WelcomeController::class, 'product'])->name('product');
 
 // // Trang chi tiết sản phẩm
-// Route::get('/product/{id}', [WelcomeController::class, 'detail'])->name('product.detail');
+Route::get('/product/{id}', [WelcomeController::class, 'detail'])->name('product.detail');
 
-// // Trang lọc sản phẩm theo danh mục hoặc sắp xếp
-// Route::get('/listProduct/{danhmucsp_id?}/{sort?}', [WelcomeController::class, 'showListProduct'])->name('listProduct.filter');
+// // Trang lọc sản phẩm theo danh mục hoặc sắp xếpRoute::get('/listProduct/{danhmucsp_id?}/{sort?}', [WelcomeController::class, 'showListProduct'])->name('listProduct.filter');
 
 // // Tìm kiếm sản phẩm (thường dùng trên trang chủ)
-// Route::get('/search', [WelcomeController::class, 'index'])->name('search');
+Route::get('/search', [WelcomeController::class, 'index'])->name('search');
 
-// Thêm route user.dashboard ở đây, KHÔNG mở lại <?php
+// // Thêm route user.dashboard ở đây, KHÔNG mở lại <?php
 Route::get('/user/dashboard', [CrudUserController::class, 'dashboard'])->name('user.dashboard');

@@ -10,7 +10,7 @@ class CrudUserController extends Controller
 {
     public function index()
     {
-        $users = User ::paginate(3);
+        $users = User::paginate(3);
         return view('admin.crudUser.listUser', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -22,26 +22,24 @@ class CrudUserController extends Controller
             'password' => 'required|min:8',
             'role' => 'required|in:user,admin' // validate giá trị hợp lệ
         ]);
-    
+
         $user = new User;
         $user->name = $request->ten;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role = $request->role; // Lấy role từ form
         $user->save();
-    
-    
-
 
         return redirect()->route('admin.listUser.index')->with('success', 'Người dùng mới đã được thêm thành công.');
-
     }
+
     public function delete($id)
     {
         User::destroy($id);
 
         return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được xóa thành công.');
     }
+
     public function update(Request $request, $user_id)
     {
         $users = User::find($user_id);
@@ -62,8 +60,9 @@ class CrudUserController extends Controller
         $users->save();
 
         return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được cập nhật thành công!');
-    } 
+    }
 
-
+    
 }
+
 
