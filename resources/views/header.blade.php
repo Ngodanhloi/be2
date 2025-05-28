@@ -120,7 +120,7 @@
         }
     }
 }
-
+// :D
 // Gọi hàm updateCartHint() khi trang tải hoặc khi có thay đổi trong giỏ hàng
 document.addEventListener('DOMContentLoaded', function() {
     updateCartHint(); // Cập nhật số lượng sản phẩm khi trang được tải
