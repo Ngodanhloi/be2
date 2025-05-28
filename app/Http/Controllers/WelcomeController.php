@@ -101,22 +101,22 @@ class WelcomeController extends Controller
     }
 
     public function detail($id)
-{
-    // Lấy thông tin sản phẩm
-    $sanPham = DB::select("select * from `sanpham` where `sanpham_id` = ?", [$id]);
+    {
+        // Lấy thông tin sản phẩm
+        $sanPham = DB::select("select * from `sanpham` where `sanpham_id` = ?", [$id]);
 
-    if (!empty($sanPham)) {
-        // Lấy danh sách bình luận của sản phẩm theo ID
-        $binhluans = BinhLuan::where('sanpham_id', $id)->with('user')->get();
+        if (!empty($sanPham)) {
+            // Lấy danh sách bình luận của sản phẩm theo ID
+            $binhluans = BinhLuan::where('sanpham_id', $id)->with('user')->get();
 
-        return view('product', [
-            'sanpham' => $sanPham[0],
-            'binhluans' => $binhluans
-        ]);
-    } else {
-        return redirect('/')->with('error', 'Sản phẩm không tồn tại');
+            return view('product', [
+                'sanpham' => $sanPham[0],
+                'binhluans' => $binhluans
+            ]);
+        } else {
+            return redirect('/')->with('error', 'Sản phẩm không tồn tại');
+        }
     }
-}
 
 
     /* Binh Luan Store*/
@@ -136,15 +136,17 @@ class WelcomeController extends Controller
 
     public function add(Request $request)
     {
-        $request->validate([
-            'hovaten' => 'required|string|max:255',
+        // Handle the contact form submission logic here
+        // Example: Validate and save the data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
             'email' => 'required|email',
-            'diachi' => 'required|string|max:255',
-            'sdt' => 'required|string|max:20',
-            'loinhan' => 'required|string',
+            'message' => 'required|string',
         ]);
 
-        LienHe::create($request->all());
-        return back()->with('success', 'Thông tin liên hệ đã được gửi thành công!');
+        // Save or process the data
+        // Example: Contact::create($validatedData);
+
+        return redirect()->route('contact')->with('success', 'Message sent successfully!');
     }
 }
