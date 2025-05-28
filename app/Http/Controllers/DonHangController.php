@@ -11,6 +11,6 @@ class DonHangController extends Controller
     public function index()
     {
         $donhangs = DonHang::orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.donhang', compact('donhangs'));
+        return view('admin.crudDonHang.donhang', compact('donhangs'));
     }
 }
