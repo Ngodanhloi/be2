@@ -96,7 +96,9 @@
                                     <td>{{ $dh->created_at }}</td>
                                     <td>{{ $dh->updated_at }}</td>
                                     <td>
-                                        
+                                    >
+                                        <a href="{{ route('admin.donhang.show', $dh->donhang_id) }}"
+                                            class="btn btn-info" >Xem</a>
                                         <form action="{{ route('admin.donhang.delete', $dh->donhang_id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf

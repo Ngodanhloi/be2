@@ -19,4 +19,10 @@ class DonHangController extends Controller
         $donhang->delete();
         return redirect()->back()->with('success', 'Đã xóa đơn hàng.');
     }
+    public function show($id)
+    {
+        $donhang = DonHang::with(['user', 'sanpham'])->findOrFail($id);
+        return view('admin.crudDonHang.donhang_show', compact('donhang'));
+    }
+
 }

@@ -41,6 +41,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/donhang', [DonHangController::class, 'index'])->name('admin.donhang');
     Route::delete('/donhang/{donhang_id}', [DonHangController::class, 'destroy'])->name('admin.donhang.delete');
 });
+Route::get('/donhang/{donhang_id}', [DonHangController::class, 'show'])->name('admin.donhang.show');
 //Crud User
 Route::get('admin/listUser', [CrudUserController::class,'index'])->name('admin.listUser.index');
 Route::post('/admin/listUser/store', [CrudUserController::class, 'store'])->name('admin.listUser.store');
