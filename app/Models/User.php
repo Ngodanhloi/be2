@@ -11,7 +11,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    protected $table = 'users';
+    protected $table = 'user';
     public $primaryKey = 'user_id';
     use HasFactory;
 

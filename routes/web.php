@@ -1,6 +1,9 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SanPhamController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CrudSanPhamController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\;
 use App\Http\Controllers\CateController;
@@ -43,6 +46,9 @@ Route::post('/admin/listUser/store', [CrudUserController::class, 'store'])->name
 Route::delete('/admin/listUser/delete/{user_id}', [CrudUserController::class, 'delete'])->name('admin.listUser.delete');
 Route::put('/admin/listUser/update/{user_id}', [CrudUserController::class, 'update'])->name('admin.listUser.update');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('register', [RegisteredUserController::class, 'store']);
