@@ -13,4 +13,10 @@ class DonHangController extends Controller
         $donhangs = DonHang::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.crudDonHang.donhang', compact('donhangs'));
     }
+    public function destroy($id)
+    {
+        $donhang = DonHang::findOrFail($id);
+        $donhang->delete();
+        return redirect()->back()->with('success', 'Đã xóa đơn hàng.');
+    }
 }

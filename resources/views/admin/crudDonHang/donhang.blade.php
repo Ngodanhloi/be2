@@ -95,6 +95,16 @@
                                     <td>{{ $dh->ghichudonhang }}</td>
                                     <td>{{ $dh->created_at }}</td>
                                     <td>{{ $dh->updated_at }}</td>
+                                    <td>
+                                        
+                                        <form action="{{ route('admin.donhang.delete', $dh->donhang_id) }}" method="POST"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Xóa đơn hàng này?')">Xóa</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -39,6 +39,7 @@ Route::delete('/admin/listpro/delete/{sanpham_id}', [SanPhamController::class, '
 /*Admin: Crud Hoá Đơn */
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/donhang', [DonHangController::class, 'index'])->name('admin.donhang');
+    Route::delete('/donhang/{donhang_id}', [DonHangController::class, 'destroy'])->name('admin.donhang.delete');
 });
 //Crud User
 Route::get('admin/listUser', [CrudUserController::class,'index'])->name('admin.listUser.index');
