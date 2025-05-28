@@ -14,6 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $table = 'user';
     public $primaryKey = 'user_id';
     use HasFactory;
+    
 
     use HasFactory, Notifiable;
 
