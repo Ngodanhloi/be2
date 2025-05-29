@@ -1,9 +1,9 @@
 <?php
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\CrudSanPhamController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\CateController;
 use App\Http\Controllers\DonHangController;
@@ -89,3 +89,8 @@ Route::get('/admin', [SanPhamController::class, 'admin'])->middleware('role:admi
 Route::get('/user', [SanPhamController::class, 'index'])->middleware('role:user')->name('user.index');
 
 Route::post('/binhluan', [WelcomeController::class, 'store'])->name('binhluan.store');
+
+// add cart
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

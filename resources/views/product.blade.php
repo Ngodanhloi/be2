@@ -126,7 +126,12 @@
     <span id="likeCount" style="font-size: 40px;">{{ $sanpham->like }}</span>
 </button>
                                         <!-- Form thêm vào giỏ hàng -->
-                                      
+                                        <form method="post" action="{{ route('cart.add') }}">
+                                            @csrf
+                                            <input type="hidden" value="{{ $sanpham->sanpham_id }}" name='sanpham_id'>
+                                            <button type="submit" class="btn btn--default orange" style="height: 60px;">Thêm vào giỏ
+                                                hàng</button>
+                                        </form>
                                     </div>
 
                                     <div class="productIndfo__policy ">

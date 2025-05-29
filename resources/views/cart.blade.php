@@ -85,17 +85,7 @@
                                     {{ $subtotal }}
                                 </div>
                             </div>
-                            <div class="col l-1 m-1 s-0">
-                                <span class="main__cart-icon">
-                                    <form method="POST" action="{{ route('cart.remove') }}">
-                                        \ @csrf
-                                        <input type="hidden" value="{{ $id }}" name="sanpham_id">
-                                        <button class="btn btn-primary" type="submit"><i
-                                                class="far fa-times-circle "></i></button>
-                                    </form>
-                                    {{-- <i class="far fa-times-circle "></i> --}}
-                                </span>
-                            </div>
+                           <!-- xoá giỏ hàng -->
                         </div>
                         @endforeach
                         @else
@@ -104,46 +94,10 @@
                         <!-- <div class="btn btn--default">
                                 Cập nhật giỏ hàng
                             </div> -->
-                        <button class="btn btn--default" id="updateCartBtn">Cập nhật giỏ hàng</button>
-
+                          <!-- cap nhap gio hang -->
                     </div>
                 </div>
-                <div class="col l-4 m-12 s-12">
-                    <div class="main__pay">
-                        <div class="main__pay-title">Tổng số lượng</div>
-                        <div class="pay-info">
-                            <div class="main__pay-text">
-                                Tổng phụ</div>
-                            <div class="main__pay-price">
-                                0 đ
-                            </div>
-                        </div>
-                        <div class="pay-info">
-                            <div class="main__pay-text">
-                                Tổng thành tiền
-                            </div>
-                            <div class="main__pay-price" id="totalPrice">
-                                {{ $totalPrice }} đ
-                            </div>
-                        </div>
-                        <div class="main__pay-title">Giảm Giá </div>
-
-                        <form action="{{ route('cart.applyDiscount') }}" method="POST">
-                            @csrf
-                            <input class="form-control" type="text" name="discount_code" placeholder="Nhập mã giảm giá">
-                            <button class=" btn btn--default" type="submit">Áp dụng</button>
-                        </form>
-                        @if(session('discount_code'))
-                        <p class="main__pay-title total-after-discount">Tổng tiền sau giảm: {{ number_format(session('total_after_discount')) }}đ</p>
-                        @endif
-                        <form method="GET" action="{{ route('pay') }}">
-                            <input type="hidden" name="totalPrice" value="{{ session('total_after_discount', $totalPrice) }}">
-                            <button id="proceedToCheckoutBtn" type="submit" class="btn btn--default">Tiến hành thanh toán</button>
-                        </form>
-
-
-                    </div>
-                </div>
+                <!-- giam gia - tong tien -->
             </div>
         </div>
     </div>
