@@ -76,10 +76,15 @@ Route::get('/product', [WelcomeController::class, 'product'])->name('product');
 Route::get('/product/{id}', [WelcomeController::class, 'detail'])->name('product.detail');
 
 // // Trang lọc sản phẩm theo danh mục hoặc sắp xếpRoute::get('/listProduct/{danhmucsp_id?}/{sort?}', [WelcomeController::class, 'showListProduct'])->name('listProduct.filter');
-
+Route::get('product/{sanpham_id}/details', [ProductController::class, 'details'])->name('product.details');
 // // Tìm kiếm sản phẩm (thường dùng trên trang chủ)
 Route::get('/search', [WelcomeController::class, 'index'])->name('search');
 
 // // Thêm route user.dashboard ở đây, KHÔNG mở lại <?php
 Route::get('/user/dashboard', [CrudUserController::class, 'dashboard'])->name('user.dashboard');
 Route::get('/listProduct/{danhmucsp_id?}/{sort?}', 'App\Http\Controllers\WelcomeController@showListProduct')->name('listProduct.filter');
+
+
+Route::get('/admin', [ProductController::class, 'admin'])->middleware('role:admin')->name('admin.dashboard');
+
+Route::get('/user', [ProductController::class, 'index'])->middleware('role:user')->name('user.index');

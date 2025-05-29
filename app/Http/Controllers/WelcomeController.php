@@ -107,11 +107,11 @@ class WelcomeController extends Controller
 
         if (!empty($sanPham)) {
             // Lấy danh sách bình luận của sản phẩm theo ID
-            $binhluans = BinhLuan::where('sanpham_id', $id)->with('user')->get();
+            // $binhluans = BinhLuan::where('sanpham_id', $id)->with('user')->get();
 
             return view('product', [
                 'sanpham' => $sanPham[0],
-                'binhluans' => $binhluans
+                // 'binhluans' => $binhluans
             ]);
         } else {
             return redirect('/')->with('error', 'Sản phẩm không tồn tại');
