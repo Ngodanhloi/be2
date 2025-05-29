@@ -24,6 +24,10 @@ use App\Http\Controllers\WelcomeController;
 // Dashboard
 Route::get('/dashboard', [CrudUserController::class, 'dashboard']);
 
+/*Tăng like*/
+Route::post('/sanpham/{id}/like', [SanPhamController::class, 'increaseLike'])->middleware('auth');
+Route::post('/sanpham/{sanphamId}/like', [SanPhamController::class, 'increaseLike']);
+
 // Admin: Crud Cate
 Route::get('admin/listcate', [CateController::class, 'index'])->name('admin.crudDanhmuc.listcate');
 Route::post('/admin/listcate/store', [CateController::class, 'store'])->name('admin.listcate.store');

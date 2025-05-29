@@ -113,18 +113,18 @@
                                     <div class="productInfo__addToCart">
                                         <!-- Nút Thích -->
                                              @php
-    $userLiked = \DB::table('product_likes')
-        ->where('user_id', auth()->id())
-        ->where('sanpham_id', $sanpham->sanpham_id)
-        ->exists();
-@endphp
-<button id="likeButton" class="btn btn--default"
-    data-product-id="{{ $sanpham->sanpham_id }}"
-    style="height: 60px;"
-    {{ $userLiked ? 'disabled' : '' }}>
-    <i class="icon-heart"></i>
-    <span id="likeCount" style="font-size: 40px;">{{ $sanpham->like }}</span>
-</button>
+                                            $userLiked = \DB::table('product_likes')
+                                                ->where('user_id', auth()->id())
+                                                ->where('sanpham_id', $sanpham->sanpham_id)
+                                                ->exists();
+                                        @endphp
+                                        <button id="likeButton" class="btn btn--default"
+                                            data-product-id="{{ $sanpham->sanpham_id }}"
+                                            style="height: 60px;"
+                                            {{ $userLiked ? 'disabled' : '' }}>
+                                            <i class="icon-heart"></i>
+                                            <span id="likeCount" style="font-size: 40px;">{{ $sanpham->like }}</span>
+                                        </button>
                                         <!-- Form thêm vào giỏ hàng -->
                                         <form method="post" action="{{ route('cart.add') }}">
                                             @csrf
@@ -486,6 +486,34 @@
                         });
                     });
                 });
+
+                $(document).ready(function () {
+                    $('#likeButton').click(function () {
+                        var productId = $(this).data('product-id');
+                        $.ajax({
+                            url: '/sanpham/' + productId + '/like',
+                            type: 'POST',
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                            },
+                            success: function (response) {
+                                // Cập nhật số lượt thích
+                                $('#likeCount').text(response.likes);
+                                alert('Cảm ơn bạn đã thích sản phẩm!');
+                                $('#likeButton').prop('disabled', true); // Disable nút sau khi like
+                            },
+                            error: function (xhr) {
+                                if (xhr.status === 409) {
+                                    alert('Bạn đã thích sản phẩm này rồi!');
+                                    $('#likeButton').prop('disabled', true); // Disable nút nếu đã like
+                                } else {
+                                    alert('Có lỗi xảy ra, vui lòng thử lại.');
+                                }
+                            }
+                        });
+                    });
+                });
+
             </script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <!-- Script common -->

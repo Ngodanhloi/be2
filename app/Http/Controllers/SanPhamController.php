@@ -104,4 +104,36 @@ class SanPhamController extends Controller
 
         return redirect('admin/listpro')->with('success', 'Sản phẩm đã được xóa thành công.');
     }
+    public function increaseLike(Request $request, $sanphamId)
+{
+    $userId = auth()->id();
+    $sanpham = SanPham::find($sanphamId);
+    if (!$sanpham) {
+        return response()->json(['message' => 'Sản phẩm không tồn tại'], 404);
+    }
+
+    // Kiểm tra user đã like chưa
+    $liked = DB::table('product_likes')
+        ->where('user_id', $userId)
+        ->where('sanpham_id', $sanphamId)
+        ->exists();
+
+    if ($liked) {
+        return response()->json(['message' => 'Bạn đã thích sản phẩm này rồi!'], 409);
+    }
+
+    // Nếu chưa like thì thêm vào bảng product_likes và tăng like
+    DB::table('product_likes')->insert([
+        'user_id' => $userId,
+        'sanpham_id' => $sanphamId,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    DB::table('sanpham')
+        ->where('sanpham_id', $sanphamId)
+        ->increment('like');
+
+    return response()->json(['message' => 'Cảm ơn bạn đã thích sản phẩm', 'likes' => $sanpham->like + 1]);
+}
 }
