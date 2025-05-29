@@ -25,5 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsSeeder::class);
         $this->call(DonHangSeeder::class);  
         $this->call(DiscountCodeSeeder::class); 
+        $this->call(DonHangSeeder::class);
+
     }
 }

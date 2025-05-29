@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -60,6 +61,7 @@ class CrudUserController extends Controller
         $users->save();
 
         return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được cập nhật thành công!');
+
     }
     public function profile()
     {
@@ -76,5 +78,4 @@ public function admin()
 }
 
 }
-
 
