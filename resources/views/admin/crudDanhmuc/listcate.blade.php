@@ -119,7 +119,38 @@
     </main>
 </body>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
 
+        searchButton.addEventListener("click", function() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const rows = document.querySelectorAll("#products-section table tbody tr");
+            let found = false;
+
+            rows.forEach(function(row) {
+                const productName = row.querySelector("td:nth-child(2)").textContent.trim().toLowerCase();
+                if (productName.includes(searchTerm)) {
+                    row.style.display = "";
+                    found = true;
+                } else {
+                    row.style.display = "none";
+                }
+            });
+
+            if (!found) {
+                alert("Không tìm thấy sản phẩm nào phù hợp.");
+            }
+        });
+
+        // Thông báo nếu không có sản phẩm nào
+        const productRows = document.querySelectorAll("#products-section table tbody tr");
+        if (productRows.length === 0) {
+            alert("Không có sản phẩm nào.");
+        }
+    });
+</script>
 
 </html>
 <script src="{{asset('js/admin.js')}}"></script>
