@@ -106,6 +106,8 @@
                                 Cập nhật giỏ hàng
                             </div> -->
                           <!-- cap nhap gio hang -->
+                          <button class="btn btn--default" id="updateCartBtn">Cập nhật giỏ hàng</button>
+
                     </div>
                 </div>
                 <!-- giam gia - tong tien -->
