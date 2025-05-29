@@ -120,7 +120,33 @@
         </section>
     </main>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
 
+        searchButton.addEventListener("click", function () {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const rows = document.querySelectorAll(".table tbody tr");
+            let found = false;
+
+            rows.forEach(row => {
+                const userId = row.cells[1].textContent.toLowerCase();
+                const productId = row.cells[2].textContent.toLowerCase();
+                if (userId.includes(searchTerm) || productId.includes(searchTerm)) {
+                    row.style.display = "";
+                    found = true;
+                } else {
+                    row.style.display = "none";
+                }
+            });
+
+            if (!found) {
+                alert("Không tìm thấy đơn hàng phù hợp.");
+            }
+        });
+    });
+</script>
 <script src="{{ asset('js/admin.js') }}"></script>
 
 </html>
