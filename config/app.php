@@ -185,4 +185,8 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'aliasess' => [
+    // ...
+    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+],
 ];
