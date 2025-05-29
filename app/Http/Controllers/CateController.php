@@ -29,4 +29,21 @@ class CateController extends Controller
 
         return redirect()->route('admin.crudDanhmuc.listcate')->with('success', 'Sản phẩm đã được xóa thành công.');
     }
+    
+    public function update(Request $request, $id)
+    {
+        $cate = Category::findOrFail($id);
+        // Validate the input data
+        $validatedData = $request->validate([
+            'ten' => 'required',
+            'mota' => 'required',
+        ]);
+
+        $cate->ten = $validatedData['ten'];
+        $cate->mota = $validatedData['mota'];
+
+        $cate->save();
+
+        return redirect()->route('admin.crudDanhmuc.listcate')->with('success', 'Sản phẩm đã được cập nhật thành công!');
+    }
 }

@@ -104,6 +104,8 @@
                         <td>{{ $cate->created_at }}</td>
                         <td>{{ $cate->updated_at }}</td>
                         <td>
+                        <button class="edit-button" data-product-id="{{ $cate->danhmucsp_id }}">Edit</button>
+
                         <form action="{{ route('admin.listcate.delete', ['danhmucsp_id' => $cate->danhmucsp_id]) }}" method="POST" style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -111,6 +113,23 @@
                             </form>
                         </td>
                         <!-- Edit form container -->
+
+                        <div id="editFormContainer-{{ $cate->danhmucsp_id }}" class="edit-form-container" style="display: none;">
+                            <form action="{{ route('admin.listcate.update', $cate->danhmucsp_id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    <label for="ten">Tên Danh Mục:</label>
+                                    <input type="text" id="ten" name="ten" class="form-control" value="{{ $cate->ten }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mota">Mô Tả:</label>
+                                    <textarea id="mota" name="mota" class="form-control" required>{{ $cate->mota }}</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cập Nhật Danh Mục</button>
+                                <button type="button" class="btn btn-danger" onclick="closeEditForm()">Đóng</button>
+                            </form>
+                        </div>
                     </tr>
                     @endforeach
                 </tbody>
