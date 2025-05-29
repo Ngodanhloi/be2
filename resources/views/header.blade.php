@@ -71,13 +71,11 @@
                 </div>
             </div>
             @if(auth()->user()->role === 'admin')
-                <!-- Nếu là admin, chuyển đến trang index (home) -->
-                <a href="{{ route('index') }}">
+                <a href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-cogs" style="font-size: 26px; color:aliceblue"></i>
                 </a>
             @else
-                <!-- Nếu là user, chuyển đến trang profile -->
-                <a href="{{ route('user.profile') }}">
+                <a href="{{ route('profile.edit') }}">
                     <i class="fas fa-user" style="font-size: 26px; color:aliceblue"></i>
                 </a>
             @endif

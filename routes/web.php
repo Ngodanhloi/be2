@@ -22,6 +22,11 @@ use App\Http\Controllers\WelcomeController;
 |
 */
 
+Route::get('/profile', function () {
+    return view('profile.edit');
+})->middleware('auth')->name('user.profile');
+
+
 
 
 Route::middleware('auth')->group(function () {
@@ -30,8 +35,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });    
 
-// Dashboard
-Route::get('/dashboard', [CrudUserController::class, 'dashboard']);
 
 // Admin: Crud Cate
 Route::get('admin/listcate', [CateController::class, 'index'])->name('admin.crudDanhmuc.listcate');

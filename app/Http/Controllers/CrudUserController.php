@@ -61,8 +61,13 @@ class CrudUserController extends Controller
 
         return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được cập nhật thành công!');
     }
+    public function profile()
+    {
+        $user = auth()->user();
+        return view('profile.edit', compact('user'));
+    }
 
-    
+
 }
 
 
