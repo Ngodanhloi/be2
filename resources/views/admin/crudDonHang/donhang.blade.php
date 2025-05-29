@@ -121,32 +121,43 @@
     </main>
 </body>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        const searchButton = document.getElementById("searchButton");
+    // Hàm loại bỏ dấu tiếng Việt
+    function removeVietnameseTones(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D");
+    }
 
-        searchButton.addEventListener("click", function () {
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            const rows = document.querySelectorAll(".table tbody tr");
-            let found = false;
+    // Hàm tìm kiếm đơn hàng
+    function searchOrders() {
+        const searchKeyword = removeVietnameseTones(document.getElementById('searchInput').value.toLowerCase());
+        const rows = document.querySelectorAll(".table tbody tr");
+        let found = false;
 
-            rows.forEach(row => {
-                const userId = row.cells[1].textContent.toLowerCase();
-                const productId = row.cells[2].textContent.toLowerCase();
-                if (userId.includes(searchTerm) || productId.includes(searchTerm)) {
-                    row.style.display = "";
-                    found = true;
-                } else {
-                    row.style.display = "none";
-                }
-            });
+        rows.forEach(function(row) {
+            const userId = removeVietnameseTones(row.cells[1].textContent.toLowerCase());
+            const productId = removeVietnameseTones(row.cells[2].textContent.toLowerCase());
 
-            if (!found) {
-                alert("Không tìm thấy đơn hàng phù hợp.");
+            if (userId.includes(searchKeyword) || productId.includes(searchKeyword)) {
+                row.style.display = '';
+                found = true;
+            } else {
+                row.style.display = 'none';
             }
         });
+
+        if (!found) {
+            alert("Không tìm thấy đơn hàng phù hợp với từ khóa tìm kiếm.");
+        }
+    }
+
+    // Gắn sự kiện click cho nút tìm kiếm
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchButton = document.getElementById("searchButton");
+        if (searchButton) {
+            searchButton.addEventListener("click", searchOrders);
+        }
     });
 </script>
+
 <script src="{{ asset('js/admin.js') }}"></script>
 
 </html>
