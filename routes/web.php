@@ -2,6 +2,7 @@
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SanPhamController;
+use App\Http\Controllers\PayController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CrudUserController;
@@ -95,3 +96,15 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/apply-discount', [CartController::class, 'applyDiscount'])->name('cart.applyDiscount');
+
+
+
+
+Route::get('/payment', [WelcomeController::class, 'pay'])->name('payment');
+
+Route::post('/pay', [PayController::class, 'store'])->name('pay.store');
+
+Route::get('/pay', [PayController::class, 'showPayPage'])->name('pay');
+
+Route::post('admin/donhang', [DonHangController::class, 'store'])->name('donhang.store');

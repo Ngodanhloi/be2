@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SanPhamSeeder::class);
         $this->call(LienHeSeeder::class);
         $this->call(NewsSeeder::class);
-        $this->call(DonHangSeeder::class);   
+        $this->call(DonHangSeeder::class);  
+        $this->call(DiscountCodeSeeder::class); 
     }
 }
