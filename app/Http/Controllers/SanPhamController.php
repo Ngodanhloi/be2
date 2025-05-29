@@ -137,6 +137,22 @@ class SanPhamController extends Controller
 
     return response()->json(['message' => 'Cảm ơn bạn đã thích sản phẩm', 'likes' => $sanpham->like + 1]);
 }
+public function listSanPham(Request $request)
+{
+    $keyword = $request->input('keyword');
+
+    $query = SanPham::with('category');
+
+    if ($keyword) {
+        $query->where('ten', 'like', '%' . $keyword . '%');
+    }
+
+    $sanphams = $query->paginate(10)->appends(['keyword' => $keyword]); // Giữ tham số keyword khi phân trang
+    $cates = Category::all();
+
+    return view('admin.crudSanPham.listpro', compact('sanphams', 'cates'))
+        ->with('i', (request()->input('page', 1) - 1) * 10);
+}
 public function exportExcel()
 {
     return Excel::download(new SanPhamExport, 'sanpham.xlsx');

@@ -118,3 +118,5 @@ Route::post('/cart/apply-discount', [CartController::class, 'applyDiscount'])->n
 Route::get('/payment', [WelcomeController::class, 'pay'])->name('payment');
 Route::post('/pay', [PayController::class, 'store'])->name('pay.store');
 Route::get('/pay', [PayController::class, 'showPayPage'])->name('pay');
+
+Route::get('admin/listpro', [SanPhamController::class, 'listSanPham'])->name('admin.listpro');

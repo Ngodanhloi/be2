@@ -157,6 +157,7 @@
             rows.forEach(function(row) {
                 const categoryName = row.querySelector("td:nth-child(2)").textContent.trim().toLowerCase();
                 if (categoryName.includes(searchTerm)) {
+
                     row.style.display = "";
                     found = true;
                 } else {
@@ -165,6 +166,7 @@
             });
 
             if (!found) {
+
                 alert("Không tìm thấy tên danh mục nào phù hợp.");
             }
         });
@@ -173,6 +175,7 @@
         const categoryRows = document.querySelectorAll("#categories-section table tbody tr");
         if (categoryRows.length === 0) {
             alert("Không có danh mục nào.");
+
         }
     });
 </script>
