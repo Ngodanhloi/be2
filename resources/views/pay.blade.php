@@ -137,21 +137,21 @@
                                     </div>
                                 </div>
                                 <br />
-                                <!-- <div class="form-group">
-                                        <label class="form-label">Phương thức thanh toán</label> <br>
-                                        <br>
-                                        <div class="col-sm-5">
-                                            <div>
-                                                <input type="radio" id="banking" name="payment_method" value="banking"
-                                                    checked />
-                                                <label class="main__pay-text" for="banking">Chuyển khoản ngân hàng</label>
-                                            </div>
-                                            <div>
-                                                <input type="radio" id="cod" name="payment_method" value="cod" />
-                                                <label class="main__pay-text" for="cod">Thanh toán khi nhận hàng</label>
-                                            </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phương thức thanh toán</label> <br>
+                                    <br>
+                                    <div class="col-sm-5">
+                                        <div>
+                                            <input type="radio" id="banking" name="payment_method" value="banking"
+                                                checked />
+                                            <label class="main__pay-text" for="banking">Chuyển khoản ngân hàng</label>
                                         </div>
-                                    </div> -->
+                                        <div>
+                                            <input type="radio" id="cod" name="payment_method" value="cod" />
+                                            <label class="main__pay-text" for="cod">Thanh toán khi nhận hàng</label>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <br />
                             </form>
@@ -184,91 +184,26 @@
                                 </p>
                             </div>
                             <div class="btn btn--default" id="order-btn">Đặt hàng</div>
-                            <!-- 
-                                Overlay -->
+
+                            <!-- Overlay -->
                             <div class="overlay" id="overlay"></div>
 
                             <!-- Message container -->
-                            <!-- <div class="message-container" id="message-container">
-                                    <div class="close-button" id="close-button">×</div>
-                                    <div class="success-message" id="success-message" style="display: none;">
-                                        Bạn đã đặt hàng thành công.
-                                    </div>
-                                    <div class="error-message" id="error-message" style="display: none;">
-                                        Bạn cần nhập đầy đủ thông tin thanh toán.
-                                    </div>
-                                </div> -->
+                            <div class="message-container" id="message-container">
+                                <div class="close-button" id="close-button">×</div>
+                                <div class="success-message" id="success-message" style="display: none;">
+                                    Bạn đã đặt hàng thành công.
+                                </div>
+                                <div class="error-message" id="error-message" style="display: none;">
+                                    Bạn cần nhập đầy đủ thông tin thanh toán.
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const orderBtn = document.getElementById('order-btn');
-                const closeBtn = document.getElementById('close-button');
-
-                if (orderBtn) {
-                    orderBtn.addEventListener('click', function (event) {
-                        var fullName = document.getElementById('ten').value.trim();
-                        var address = document.getElementById('diachigiaohang').value.trim();
-                        var phone = document.getElementById('sdt').value.trim();
-                        var ghichu = document.getElementById('ghichudonhang').value.trim();
-
-                        if (fullName === '' || address === '' || phone === '') {
-                            document.getElementById('error-message').style.display = 'block';
-                            document.getElementById('success-message').style.display = 'none';
-                            document.getElementById('overlay').style.display = 'block';
-                            document.getElementById('message-container').style.display = 'block';
-                            return;
-                        } else {
-                            document.getElementById('error-message').style.display = 'none';
-
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ route('donhang.store') }}",
-                                data: {
-                                    _token: '{{ csrf_token() }}',
-                                    cart: @json($cartItems),
-                                    tongtien: '{{ session('total_after_discount') }}',
-                                    ten: fullName,
-                                    diachigiaohang: address,
-                                    sdt: phone,
-                                    ghichudonhang: ghichu
-                                },
-                                success: function (response) {
-                                    document.getElementById('success-message').style.display = 'block';
-                                    document.getElementById('overlay').style.display = 'block';
-                                    document.getElementById('message-container').style.display = 'block';
-
-                                    setTimeout(function () {
-                                        window.location.href = "{{ route('index') }}";
-                                    }, 2000);
-                                },
-                                error: function (xhr, status, error) {
-                                    document.getElementById('error-message').textContent = 'Đã có lỗi xảy ra. Vui lòng thử lại.';
-                                    document.getElementById('error-message').style.display = 'block';
-                                    document.getElementById('success-message').style.display = 'none';
-                                    document.getElementById('overlay').style.display = 'block';
-                                    document.getElementById('message-container').style.display = 'block';
-                                    // Xem lỗi chi tiết từ server
-                                    alert(xhr.responseText);
-                                    console.log(xhr);
-                                }
-
-                            });
-                        }
-                    });
-                }
-
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', function (event) {
-                        document.getElementById('overlay').style.display = 'none';
-                        document.getElementById('message-container').style.display = 'none';
-                    });
-                }
-            });
-        </script>
+       
     </body>
 @endsection
