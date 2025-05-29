@@ -16,6 +16,8 @@ use App\Http\Controllers\CateController;
 /*Admin: Crud Cate */
 Route::get('admin/listcate', [CateController::class, 'index'])->name('admin.crudDanhmuc.listcate');
 Route::post('/admin/listcate/store', [CateController::class, 'store'])->name('admin.listcate.store');
+Route::delete('/admin/listcate/delete/{danhmucsp_id}', [CateController::class, 'delete'])->name('admin.listcate.delete');
+
 Route::get('/', function () {
     return view('welcome');
 });

@@ -103,7 +103,13 @@
                         <td>{!! $cate->mota !!}</td>
                         <td>{{ $cate->created_at }}</td>
                         <td>{{ $cate->updated_at }}</td>
-                      
+                        <td>
+                        <form action="{{ route('admin.listcate.delete', ['danhmucsp_id' => $cate->danhmucsp_id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?')">Xóa</button>
+                            </form>
+                        </td>
                         <!-- Edit form container -->
                     </tr>
                     @endforeach

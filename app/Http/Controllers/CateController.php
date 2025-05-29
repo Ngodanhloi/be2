@@ -22,4 +22,11 @@ class CateController extends Controller
         $cate->save();
         return redirect()->route('admin.crudDanhmuc.listcate')->with('success', 'Danh Mục đã được thêm thành công.');
     }
+    public function delete($id)
+    {
+        // Delete the SanPham record
+        Category::destroy($id);
+
+        return redirect()->route('admin.crudDanhmuc.listcate')->with('success', 'Sản phẩm đã được xóa thành công.');
+    }
 }

@@ -15,13 +15,13 @@ class Category extends Model
     {
         parent::boot();
 
-        static::deleting(function ($category) {
-            // Xóa tất cả các sản phẩm liên quan
-            $category->products()->delete();
+        // static::deleting(function ($category) {
+        //     // Xóa tất cả các sản phẩm liên quan
+        //     $category->products()->delete();
 
-            // Hoặc cập nhật sản phẩm sang NULL hoặc ID danh mục khác
-            // $category->products()->update(['danhmucsp_id' => null]);
-        });
+        //     // Hoặc cập nhật sản phẩm sang NULL hoặc ID danh mục khác
+        //     // $category->products()->update(['danhmucsp_id' => null]);
+        // });
     }
 
     // public function products()
