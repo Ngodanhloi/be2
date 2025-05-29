@@ -144,7 +144,38 @@
     </main>
 </body>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
 
+        searchButton.addEventListener("click", function() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const rows = document.querySelectorAll("#categories-section table tbody tr");
+            let found = false;
+
+            rows.forEach(function(row) {
+                const categoryName = row.querySelector("td:nth-child(2)").textContent.trim().toLowerCase();
+                if (categoryName.includes(searchTerm)) {
+                    row.style.display = "";
+                    found = true;
+                } else {
+                    row.style.display = "none";
+                }
+            });
+
+            if (!found) {
+                alert("Không tìm thấy tên danh mục nào phù hợp.");
+            }
+        });
+
+        // Add this part to handle empty search result
+        const categoryRows = document.querySelectorAll("#categories-section table tbody tr");
+        if (categoryRows.length === 0) {
+            alert("Không có danh mục nào.");
+        }
+    });
+</script>
 
 </html>
 <script src="{{asset('js/admin.js')}}"></script>
