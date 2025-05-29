@@ -204,6 +204,71 @@
             </div>
         </div>
 
-       
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const orderBtn = document.getElementById('order-btn');
+                const closeBtn = document.getElementById('close-button');
+
+                if (orderBtn) {
+                    orderBtn.addEventListener('click', function (event) {
+                        var fullName = document.getElementById('ten').value.trim();
+                        var address = document.getElementById('diachigiaohang').value.trim();
+                        var phone = document.getElementById('sdt').value.trim();
+                        var ghichu = document.getElementById('ghichudonhang').value.trim();
+
+                        if (fullName === '' || address === '' || phone === '') {
+                            document.getElementById('error-message').style.display = 'block';
+                            document.getElementById('success-message').style.display = 'none';
+                            document.getElementById('overlay').style.display = 'block';
+                            document.getElementById('message-container').style.display = 'block';
+                            return;
+                        } else {
+                            document.getElementById('error-message').style.display = 'none';
+
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('donhang.store') }}",
+                                data: {
+                                    _token: '{{ csrf_token() }}',
+                                    cart: @json($cartItems),
+                                    tongtien: '{{ session('total_after_discount') }}',
+                                    ten: fullName,
+                                    diachigiaohang: address,
+                                    sdt: phone,
+                                    ghichudonhang: ghichu
+                                },
+                                success: function (response) {
+                                    document.getElementById('success-message').style.display = 'block';
+                                    document.getElementById('overlay').style.display = 'block';
+                                    document.getElementById('message-container').style.display = 'block';
+
+                                    setTimeout(function () {
+                                        window.location.href = "{{ route('index') }}";
+                                    }, 2000);
+                                },
+                                error: function (xhr, status, error) {
+                                    document.getElementById('error-message').textContent = 'Đã có lỗi xảy ra. Vui lòng thử lại.';
+                                    document.getElementById('error-message').style.display = 'block';
+                                    document.getElementById('success-message').style.display = 'none';
+                                    document.getElementById('overlay').style.display = 'block';
+                                    document.getElementById('message-container').style.display = 'block';
+                                    // Xem lỗi chi tiết từ server
+                                    alert(xhr.responseText);
+                                    console.log(xhr);
+                                }
+
+                            });
+                        }
+                    });
+                }
+
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function (event) {
+                        document.getElementById('overlay').style.display = 'none';
+                        document.getElementById('message-container').style.display = 'none';
+                    });
+                }
+            });
+        </script>
     </body>
 @endsection
