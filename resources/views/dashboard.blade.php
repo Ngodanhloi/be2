@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +36,6 @@
 @yield('content')
 </body>
 </html>
-=======
 <style>
     .btn-conteiner {
         display: flex;

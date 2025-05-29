@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SanPhamController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\CateController;
@@ -21,8 +22,19 @@ use App\Http\Controllers\WelcomeController;
 |
 */
 
-// Dashboard
-Route::get('/dashboard', [CrudUserController::class, 'dashboard']);
+Route::get('/profile', function () {
+    return view('profile.edit');
+})->middleware('auth')->name('user.profile');
+
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});    
+
 
 /*Tăng like*/
 Route::post('/sanpham/{id}/like', [SanPhamController::class, 'increaseLike'])->middleware('auth');
