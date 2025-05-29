@@ -39,9 +39,9 @@
         <a href="{{ url('/') }}"><i class="fa fa-home" style="color:#fff; font-size: 25px;"></i></a>
         <nav>
             <ul>
-                <li><a href="{{ asset('admin/pro') }}">Quản lý sản phẩm</a></li>
-                <li><a href="{{ asset('admin/cate') }}">Danh Mục</a></li>
-                <li><a href="{{ asset('dmin/user') }}">Quản lý tài khoản</a></li>
+                <li><a href="{{ asset('admin/listpro') }}">Quản lý sản phẩm</a></li>
+                <li><a href="{{ asset('admin/listcate') }}">Danh Mục</a></li>
+                <li><a href="{{ asset('admin/listUser') }}">Quản lý tài khoản</a></li>
                 <li><a href="{{ asset('admin/donhang') }}">Đơn Hàng</a></li>
             </ul>
         </nav>
