@@ -3446,3 +3446,16 @@
 	}
 
 })(window.Zepto || window.jQuery, window, document);
+
+$(document).ready(function () {
+    $('#sync1').owlCarousel({
+        items: 1, // Số lượng item hiển thị
+        loop: true, // Lặp lại carousel
+        margin: 10, // Khoảng cách giữa các item
+        nav: true, // Hiển thị nút điều hướng
+        dots: true, // Hiển thị các chấm điều hướng
+        autoplay: true, // Tự động chạy
+        autoplayTimeout: 3000, // Thời gian giữa các slide (ms)
+        autoplayHoverPause: true // Dừng khi hover
+    });
+});

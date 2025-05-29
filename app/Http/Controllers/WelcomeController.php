@@ -107,11 +107,11 @@ class WelcomeController extends Controller
 
         if (!empty($sanPham)) {
             // Lấy danh sách bình luận của sản phẩm theo ID
-            // $binhluans = BinhLuan::where('sanpham_id', $id)->with('user')->get();
+            $binhluans = BinhLuan::where('sanpham_id', $id)->with('user')->get();
 
             return view('product', [
                 'sanpham' => $sanPham[0],
-                // 'binhluans' => $binhluans
+                'binhluans' => $binhluans
             ]);
         } else {
             return redirect('/')->with('error', 'Sản phẩm không tồn tại');
@@ -125,15 +125,17 @@ class WelcomeController extends Controller
         $request->validate([
             'sanpham_id' => 'required|integer',
             'user_id' => 'required|integer',
-            'sao' => 'required|numeric',
+            'sao' => 'required|numeric|min:1|max:5',
             'binhluan' => 'required|string|max:255',
         ]);
-
-        BinhLuan::create($request->all());
-
-        return back()->with('success', 'Bình luận đã được thêm!');
+    
+        $binhluan = BinhLuan::create($request->all());
+    
+        return response()->json([
+            'success' => true,
+            'binhluan' => $binhluan->load('user'), // Load quan hệ user để lấy thông tin người dùng
+        ]);
     }
-
     public function add(Request $request)
     {
         // Handle the contact form submission logic here
