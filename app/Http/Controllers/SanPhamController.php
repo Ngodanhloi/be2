@@ -93,7 +93,7 @@ class SanPhamController extends Controller
 
         $sanpham->save();
 
-        return redirect()->route('admin/listpro')->with('success', 'đã được thêm thành công.');
+        return redirect()->route('listpro')->with('success', 'đã được thêm thành công.');
     }
     public function delete($id)
     {

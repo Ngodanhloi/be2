@@ -41,11 +41,11 @@
         <a href="{{url('/')}}"><i class="fa fa-home" style="color:#fff; font-size: 25px;"></i></a>
         <nav>
             <ul>
-                <!-- <li><a href="{{asset('roleadmin/pro')}}" class="nav-link">Quản lý sản phẩm</a></li>
-                <li><a href="{{asset('roleadmin/cate')}}" class="nav-link">Danh Mục</a></li>
-                <li><a href="{{asset('roleadmin/user')}}" class="nav-link">Quản lý tài khoản</a></li>
-                <li><a href="{{ asset('roleadmin/donhang') }}">Đơn Hàng</a></li>
-            </ul> -->
+            <li><a href="{{asset('admin/listpro')}}" class="nav-link">Quản lý sản phẩm</a></li>
+                <li><a href="{{asset('admin/listcate')}}" class="nav-link">Danh Mục</a></li>
+                <li><a href="{{asset('admin/listUser')}}" class="nav-link">Quản lý tài khoản</a></li>
+                <li><a href="{{ asset('admin/donhang') }}">Đơn Hàng</a></li>
+            </ul> 
         </nav>
     </header>
 
@@ -56,8 +56,6 @@
         </div>
         @endif
         <section id="products-section" class="admin-section">
-            <h2>Quản lý sản phẩm</h2>
-            
                     @if (session('success'))
                     <div id="alert alert-success">
                         {{ session('success') }}

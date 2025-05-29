@@ -18,7 +18,7 @@ class CrudUserController extends Controller
     {
         $request->validate([
             'ten' => 'required|max:50',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:user,email',
             'password' => 'required|min:8',
             'role' => 'required|in:user,admin' // validate giá trị hợp lệ
         ]);

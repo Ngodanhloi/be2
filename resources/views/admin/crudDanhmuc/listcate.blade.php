@@ -103,8 +103,33 @@
                         <td>{!! $cate->mota !!}</td>
                         <td>{{ $cate->created_at }}</td>
                         <td>{{ $cate->updated_at }}</td>
-                      
+                        <td>
+                        <button class="edit-button" data-product-id="{{ $cate->danhmucsp_id }}">Edit</button>
+
+                        <form action="{{ route('admin.listcate.delete', ['danhmucsp_id' => $cate->danhmucsp_id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này không?')">Xóa</button>
+                            </form>
+                        </td>
                         <!-- Edit form container -->
+
+                        <div id="editFormContainer-{{ $cate->danhmucsp_id }}" class="edit-form-container" style="display: none;">
+                            <form action="{{ route('admin.listcate.update', $cate->danhmucsp_id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    <label for="ten">Tên Danh Mục:</label>
+                                    <input type="text" id="ten" name="ten" class="form-control" value="{{ $cate->ten }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mota">Mô Tả:</label>
+                                    <textarea id="mota" name="mota" class="form-control" required>{{ $cate->mota }}</textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Cập Nhật Danh Mục</button>
+                                <button type="button" class="btn btn-danger" onclick="closeEditForm()">Đóng</button>
+                            </form>
+                        </div>
                     </tr>
                     @endforeach
                 </tbody>
@@ -119,7 +144,38 @@
     </main>
 </body>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
 
+        searchButton.addEventListener("click", function() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const rows = document.querySelectorAll("#categories-section table tbody tr");
+            let found = false;
+
+            rows.forEach(function(row) {
+                const categoryName = row.querySelector("td:nth-child(2)").textContent.trim().toLowerCase();
+                if (categoryName.includes(searchTerm)) {
+                    row.style.display = "";
+                    found = true;
+                } else {
+                    row.style.display = "none";
+                }
+            });
+
+            if (!found) {
+                alert("Không tìm thấy tên danh mục nào phù hợp.");
+            }
+        });
+
+        // Add this part to handle empty search result
+        const categoryRows = document.querySelectorAll("#categories-section table tbody tr");
+        if (categoryRows.length === 0) {
+            alert("Không có danh mục nào.");
+        }
+    });
+</script>
 
 </html>
 <script src="{{asset('js/admin.js')}}"></script>

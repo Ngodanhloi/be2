@@ -71,7 +71,7 @@
                 </div>
             </div>
             @if(auth()->user()->role === 'admin')
-                <a href="{{ route('admin.dashboard') }}">
+                <a href="{{ route('admin.home') }}">
                     <i class="fas fa-cogs" style="font-size: 26px; color:aliceblue"></i>
                 </a>
             @else

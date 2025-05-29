@@ -26,19 +26,14 @@ Route::get('/profile', function () {
     return view('profile.edit');
 })->middleware('auth')->name('user.profile');
 
-
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });    
 
-
 /*Tăng like*/
 Route::post('/sanpham/{id}/like', [SanPhamController::class, 'increaseLike'])->middleware('auth');
-Route::post('/sanpham/{sanphamId}/like', [SanPhamController::class, 'increaseLike']);
 
 // Admin: Crud Cate
 Route::get('admin/listcate', [CateController::class, 'index'])->name('admin.crudDanhmuc.listcate');
@@ -54,7 +49,15 @@ Route::delete('/admin/listpro/delete/{sanpham_id}', [SanPhamController::class, '
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/donhang', [DonHangController::class, 'index'])->name('admin.donhang');
     Route::delete('/donhang/{donhang_id}', [DonHangController::class, 'destroy'])->name('admin.donhang.delete');
+    Route::delete('/listcate/delete/{danhmucsp_id}', [CateController::class, 'delete'])->name('admin.listcate.delete');
+    Route::put('/listcate/update/{danhmucsp_id}', [CateController::class, 'update'])->name('admin.listcate.update');
+    Route::post('/donhang', [DonHangController::class, 'store'])->name('donhang.store');
+    Route::get('/export_excel', [SanPhamController::class, 'exportExcel'])->name('admin.export_excel');
+    Route::get('/home', function () {
+        return view('admin.home');
+    })->name('admin.home');
 });
+
 
 // Xem chi tiết đơn hàng (không cần đăng nhập)
 Route::get('/donhang/{donhang_id}', [DonHangController::class, 'show'])->name('admin.donhang.show');
@@ -73,61 +76,45 @@ require __DIR__.'/auth.php';
 // Trang chủ (cần đăng nhập)
 Route::get('/', [WelcomeController::class, 'index'])->middleware('auth')->name('index');
 
-// // Trang liên hệ
+// Trang liên hệ
 Route::get('/contact', [WelcomeController::class, 'contact'])->name('contact');
 Route::post('/contact', [WelcomeController::class, 'add'])->name('contact.add');
 
 // Trang giới thiệu
 Route::get('/about', [WelcomeController::class, 'about'])->name('about');
 
-// // Trang tin tức
+// Trang tin tức
 Route::get('/news', [WelcomeController::class, 'news'])->name('news');
 
-// // Trang đánh giá
+// Trang đánh giá
 Route::get('/danhgia', [WelcomeController::class, 'danhgia'])->name('danhgia');
 
-// // Trang sản phẩm (danh sách)
+// Trang sản phẩm (danh sách)
 Route::get('/product', [WelcomeController::class, 'product'])->name('product');
 
-// // Trang chi tiết sản phẩm
+// Trang chi tiết sản phẩm
 Route::get('/product/{id}', [WelcomeController::class, 'detail'])->name('product.detail');
 
-// // Trang lọc sản phẩm theo danh mục hoặc sắp xếpRoute::get('/listProduct/{danhmucsp_id?}/{sort?}', [WelcomeController::class, 'showListProduct'])->name('listProduct.filter');
+// Trang lọc sản phẩm theo danh mục hoặc sắp xếp
+Route::get('/listProduct/{danhmucsp_id?}/{sort?}', [WelcomeController::class, 'showListProduct'])->name('listProduct.filter');
 Route::get('product/{sanpham_id}/details', [SanPhamController::class, 'details'])->name('product.details');
-// // Tìm kiếm sản phẩm (thường dùng trên trang chủ)
+
+// Tìm kiếm sản phẩm (thường dùng trên trang chủ)
 Route::get('/search', [WelcomeController::class, 'index'])->name('search');
 
-// // Thêm route user.dashboard ở đây, KHÔNG mở lại <?php
+// Thêm route user.dashboard ở đây
 Route::get('/user/dashboard', [CrudUserController::class, 'dashboard'])->name('user.dashboard');
-Route::get('/listProduct/{danhmucsp_id?}/{sort?}', 'App\Http\Controllers\WelcomeController@showListProduct')->name('listProduct.filter');
-
 Route::get('/user', [SanPhamController::class, 'index'])->middleware('role:user')->name('user.index');
 
 Route::post('/binhluan', [WelcomeController::class, 'store'])->name('binhluan.store');
 
-// add cart
+// Add cart
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/apply-discount', [CartController::class, 'applyDiscount'])->name('cart.applyDiscount');
 
-
-
-
 Route::get('/payment', [WelcomeController::class, 'pay'])->name('payment');
-
 Route::post('/pay', [PayController::class, 'store'])->name('pay.store');
-
 Route::get('/pay', [PayController::class, 'showPayPage'])->name('pay');
-
-Route::post('admin/donhang', [DonHangController::class, 'store'])->name('donhang.store');
-
-Route::get('/admin', [CrudUserController::class, 'admin']);
-
-
-Route::get('admin/export_excel', [SanPhamController::class, 'exportExcel'])->name('admin.export_excel');
-
-Route::get('/admin', [CrudUserController::class, 'admin'])
-    ->middleware('role:admin')
-    ->name('admin.home');
