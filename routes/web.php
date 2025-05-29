@@ -89,8 +89,6 @@ Route::get('/search', [WelcomeController::class, 'index'])->name('search');
 Route::get('/user/dashboard', [CrudUserController::class, 'dashboard'])->name('user.dashboard');
 Route::get('/listProduct/{danhmucsp_id?}/{sort?}', 'App\Http\Controllers\WelcomeController@showListProduct')->name('listProduct.filter');
 
-Route::get('/admin', [SanPhamController::class, 'admin'])->middleware('role:admin')->name('admin.dashboard');
-
 Route::get('/user', [SanPhamController::class, 'index'])->middleware('role:user')->name('user.index');
 
 Route::post('/binhluan', [WelcomeController::class, 'store'])->name('binhluan.store');
@@ -112,3 +110,12 @@ Route::post('/pay', [PayController::class, 'store'])->name('pay.store');
 Route::get('/pay', [PayController::class, 'showPayPage'])->name('pay');
 
 Route::post('admin/donhang', [DonHangController::class, 'store'])->name('donhang.store');
+
+Route::get('/admin', [CrudUserController::class, 'admin']);
+
+
+Route::get('admin/export_excel', [SanPhamController::class, 'exportExcel'])->name('admin.export_excel');
+
+Route::get('/admin', [CrudUserController::class, 'admin'])
+    ->middleware('role:admin')
+    ->name('admin.home');

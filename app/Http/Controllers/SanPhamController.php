@@ -9,6 +9,7 @@ use App\Exports\SanPhamExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 class SanPhamController extends Controller
 {
 
@@ -135,5 +136,9 @@ class SanPhamController extends Controller
         ->increment('like');
 
     return response()->json(['message' => 'Cảm ơn bạn đã thích sản phẩm', 'likes' => $sanpham->like + 1]);
+}
+public function exportExcel()
+{
+    return Excel::download(new SanPhamExport, 'sanpham.xlsx');
 }
 }

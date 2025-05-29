@@ -62,6 +62,12 @@ class CrudUserController extends Controller
         return redirect()->route('admin.listUser.index')->with('success', 'Tài khoản đã được cập nhật thành công!');
     }
 
+    // SanPhamController.php
+public function admin()
+{
+    return view('admin.home'); // hoặc đường dẫn Blade bạn đang dùng
+}
+
     
 }
 

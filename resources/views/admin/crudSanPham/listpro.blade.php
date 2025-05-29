@@ -64,6 +64,17 @@
                     </div>
                     @endif
                     <!-- Button to trigger the popup -->
+                    <section id="products-section" class="admin-section">
+                        <h2>Quản lý sản phẩm</h2>
+
+                        <!-- Nút Xuất Excel -->
+                        <div style="margin-bottom: 20px;">
+                            <a href="{{ route('admin.export_excel') }}" class="btn btn-success">Xuất Excel</a>
+                        </div>
+
+                            <!-- Phần còn lại của mã -->
+                            ...
+                        </section>
                     <button id="openPopupButton" class="btn btn-primary">Thêm sản phẩm</button>
                     <!-- Popup form -->
                     <div id="popupForm" style="display: none;">
