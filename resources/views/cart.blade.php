@@ -86,6 +86,17 @@
                                 </div>
                             </div>
                            <!-- xoá giỏ hàng -->
+                           <div class="col l-1 m-1 s-0">
+                                <span class="main__cart-icon">
+                                    <form method="POST" action="{{ route('cart.remove') }}">
+                                        \ @csrf
+                                        <input type="hidden" value="{{ $id }}" name="sanpham_id">
+                                        <button class="btn btn-primary" type="submit"><i
+                                                class="far fa-times-circle "></i></button>
+                                    </form>
+                                    {{-- <i class="far fa-times-circle "></i> --}}
+                                </span>
+                            </div>
                         </div>
                         @endforeach
                         @else
